@@ -1,18 +1,6 @@
-locals {
-  create_basic_cluster = var.kafka_cluster_type == "basic" ? [""] : []
-  create_standard_cluster = var.kafka_cluster_type == "standard" ? [""] : []
-  # create_basic_or_standard_cluster = var.kafka_cluster_type == "basic" || var.kafka_cluster_type == "standard" ? [""] : []
-  create_dedicated_cluster = var.kafka_cluster_type == "dedicated" ? [""] : []
-
-}
-
 # Create envinroment resource
-resource "confluent_environment" "test_environment" {
+resource "confluent_environment" "main" {
   display_name = var.confluent_environment_name
-
-  lifecycle {
-    prevent_destroy = false
-  }
 }
 
 # Create cluster resource
@@ -21,33 +9,29 @@ resource "confluent_kafka_cluster" "test_cluster" {
   
   display_name = var.kafka_cluster_name
   availability = var.kafka_cluster_availability_zone
-  cloud        = "GCP"
+  cloud        = var.kafka_cluster_cloud_provider
   region       = var.kafka_cluster_region
 
   dynamic "basic" {
-    for_each = local.create_basic_cluster
+    for_each = var.kafka_cluster_type == "basic" ? [1] : []
     content {}
   }
 
   dynamic "standard" {
-    for_each = local.create_standard_cluster
+    for_each = var.kafka_cluster_type == "standard" ? [1] : []
     content {}
   }
 
   dynamic "dedicated" {
-    for_each = local.create_dedicated_cluster
+    for_each = var.kafka_cluster_type == "dedicated" ? [1] : []
     content {
         cku = var.dedicated_cluster_cku
-        encryption_key = var.encryption_key
+        encryption_key = var.dedicated_encryption_key
     }
   }
 
   environment {
-    id = confluent_environment.test_environment.id
-  }
-
-  lifecycle {
-    prevent_destroy = false
+    id = confluent_environment.main.id
   }
 }
 

@@ -4,12 +4,6 @@ variable "confluent_environment_name" {
     description = "The name of the environament you want to use"
 }
 
-variable "confluent_environment_prevent_destroy" {
-    type = bool
-    default = false
-    description = "This prevents Terraform from accidentally removing critical resources"
-}
-
 # CLUSTER
 variable create_cluster {
     type = bool
@@ -33,6 +27,12 @@ variable "kafka_cluster_availability_zone" {
     description = "The availability zone configuration of the Kafka cluster"
 }
 
+variable "kafka_cluster_cloud_provider" {
+    type = string
+    default = "GCP"
+    description = ""
+}
+
 variable "kafka_cluster_region" {
     type = string
     default = "us-east1"
@@ -47,13 +47,13 @@ variable "kafka_cluster_prevent_destroy" {
 
 variable "dedicated_cluster_cku" {
     type = number
-    default = 2
+    default = 0
     description = "The number of Confluent Kafka Units for Dedicated cluster types. The minimum number of CKUs for SINGLE_ZONE dedicated clusters is 1 whereas MULTI_ZONE dedicated clusters must have more than 2 CKUs"
 }
 
-variable "dedicated_cluster_encryption_key" {
+variable "dedicated_encryption_key" {
     type = string
-    default = 2
+    default = ""
     description = ""
 }
 
