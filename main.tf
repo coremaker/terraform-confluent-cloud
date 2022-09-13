@@ -5,8 +5,6 @@ resource "confluent_environment" "main" {
 
 # Create cluster resource
 resource "confluent_kafka_cluster" "main" {
-  count = var.create_cluster ? 1 : 0
-  
   display_name = var.kafka_cluster_name
   availability = var.kafka_cluster_availability_zone
   cloud        = var.kafka_cluster_cloud_provider
@@ -72,27 +70,25 @@ resource "confluent_kafka_cluster" "main" {
 #   ]
 # }
 
-# # Create Topics
-# resource "confluent_kafka_topic" "test_topic" {
-#   kafka_cluster {
-#     id = confluent_kafka_cluster.test_cluster[0].id
-#   }
+# Create Topics
 
-#   rest_endpoint = confluent_kafka_cluster.test_cluster[0].rest_endpoint
-#   for_each = var.topics
-#   topic_name = each.key
-#   partitions_count = each.value["partitions_count"]
-#   config = each.value["config"]
+resource "confluent_kafka_topic" "test_topic" {
+  for_each = var.topics
+  topic_name = each.key
 
-#   credentials {
-#     key    = confluent_api_key.app-manager-kafka-api-key.id
-#     secret = confluent_api_key.app-manager-kafka-api-key.secret
-#   }
+  kafka_cluster {
+    id = confluent_kafka_cluster.main.id
+  }
 
-#   lifecycle {
-#     prevent_destroy = false
-#   }
-# }
+  rest_endpoint = confluent_kafka_cluster.main.rest_endpoint
+  partitions_count = each.value["partitions_count"]
+  config = each.value["config"]
+
+  # credentials {
+  #   key    = confluent_api_key.app-manager-kafka-api-key.id
+  #   secret = confluent_api_key.app-manager-kafka-api-key.secret
+  # }
+}
 
 # Create Cluster API keys with restricted access
 

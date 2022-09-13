@@ -5,11 +5,6 @@ variable "confluent_environment_name" {
 }
 
 # CLUSTER
-variable create_cluster {
-    type = bool
-    default = true
-}
-
 variable "kafka_cluster_type" {
     type = string
     default = "basic"
