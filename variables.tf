@@ -1,15 +1,3 @@
-# CREDENTIALS
-variable "confluent_cloud_api_key" {
-    type = string
-    description = "Confluent Cloud API Key (also referred as Cloud API ID)"
-}
-
-variable "confluent_cloud_api_secret" {
-    type = string
-    description = "Confluent Cloud API Secret"
-    sensitive = true
-}
-
 # ENVIRONMENT
 variable "confluent_environment_name" {
     type = string
