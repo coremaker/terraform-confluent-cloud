@@ -91,44 +91,63 @@ resource "confluent_kafka_topic" "main" {
 
 # Create Cluster API keys with restricted access
 
-# resource "confluent_kafka_acl" "app-producer-read-on-topic" {
+# Read Access
+resource "confluent_service_account" "first-key" {
+  display_name = "${confluent_kafka_cluster.main.display_name}-first-key"
+  description  = "Service account to manage 'main' Kafka cluster"
+}
+resource "confluent_kafka_acl" "first-key-on-topic" {
+  for_each = toset(var.resource_name_list_for_first_key)
+
+  kafka_cluster {
+    id = confluent_kafka_cluster.main.id
+  }
+
+  resource_type = each.value["resource_type"]
+  resource_name = each.key
+  pattern_type  = each.value["pattern_type"]
+  principal     = "User:${confluent_service_account.first-key.id}"
+  host          = each.value["host"]
+  operation     = each.value["operation"]
+  permission    = each.value["permission"]
+  rest_endpoint = confluent_kafka_cluster.main.rest_endpoint
+  credentials {
+    key    = confluent_api_key.app-manager-kafka-api-key.id
+    secret = confluent_api_key.app-manager-kafka-api-key.secret
+  }
+  depends_on = [
+    confluent_service_account.app-manager,
+    confluent_api_key.app-manager-kafka-api-key
+  ]
+}
+
+# Write Access
+# resource "confluent_service_account" "app-write-manager" {
+#   display_name = "${confluent_kafka_cluster.main.display_name}-write-manager"
+#   description  = "Service account to manage 'main' Kafka cluster"
+# }
+
+# resource "confluent_kafka_acl" "app-write-manager-on-topic" {
+#   for_each= toset(var.resource_name_list)
+
 #   kafka_cluster {
-#     id = confluent_kafka_cluster.test_cluster[0].id
+#     id = confluent_kafka_cluster.main.id
 #   }
-#   for_each = var.services
-#   resource_type = "TOPIC"
-#   resource_name = confluent_kafka_topic.test_topic.topic_name
+
+#   resource_type = each.value["resource_type"]
+#   resource_name = each.key
 #   pattern_type  = each.value["pattern_type"]
-#   principal     = "User:${confluent_service_account.app-manager.id}"
+#   principal     = "User:${confluent_service_account.app-write-manager.id}"
 #   host          = each.value["host"]
 #   operation     = each.value["operation"]
 #   permission    = each.value["permission"]
-#   rest_endpoint = confluent_kafka_cluster.test_cluster[0].rest_endpoint
+#   rest_endpoint = confluent_kafka_cluster.main.rest_endpoint
 #   credentials {
 #     key    = confluent_api_key.app-manager-kafka-api-key.id
 #     secret = confluent_api_key.app-manager-kafka-api-key.secret
 #   }
+#   depends_on = [
+#     confluent_service_account.app-manager,
+#     confluent_api_key.app-manager-kafka-api-key
+#   ]
 # }
-
-# resource "confluent_kafka_acl" "app-producer-write-on-topic" {
-#   kafka_cluster {
-#     id = confluent_kafka_cluster.test_cluster.id
-#   }
-#   for_each = var.services
-#   resource_type = "TOPIC"
-#   resource_name = confluent_kafka_topic.test_topic.topic_name
-#   pattern_type  = each.value["pattern_type"]
-#   principal     = "User:${confluent_service_account.app-manager.id}"
-#   host          = each.value["host"]
-#   operation     = each.value["operation"]
-#   permission    = each.value["permission"]
-#   rest_endpoint = confluent_kafka_cluster.test_cluster[0].rest_endpoint
-#   credentials {
-#     key    = confluent_api_key.app-manager-kafka-api-key.id
-#     secret = confluent_api_key.app-manager-kafka-api-key.secret
-#   }
-# }
-
-
-
-

@@ -8,7 +8,7 @@ variable "confluent_environment_name" {
 variable "kafka_cluster_type" {
     type = string
     default = "basic"
-    description = ""
+    description = "The configuration of the Kafka cluster"
 }
 
 variable "kafka_cluster_name" {
@@ -25,19 +25,13 @@ variable "kafka_cluster_availability_zone" {
 variable "kafka_cluster_cloud_provider" {
     type = string
     default = "GCP"
-    description = ""
+    description = "The cloud service provider that runs the Kafka cluster. The accepted values are: GCP, AWS and Azure"
 }
 
 variable "kafka_cluster_region" {
     type = string
     default = "us-east1"
     description = "The configuration region of the Kafka cluster"
-}
-
-variable "kafka_cluster_prevent_destroy" {
-    type = bool
-    default = false
-    description = "This prevents Terraform from accidentally removing critical resources"
 }
 
 variable "dedicated_cluster_cku" {
@@ -49,59 +43,42 @@ variable "dedicated_cluster_cku" {
 variable "dedicated_encryption_key" {
     type = string
     default = ""
-    description = ""
+    description = "The ID of the encryption key that is used to encrypt the data in the Kafka cluster"
 }
 
 # TOPICS
-# variable "topic_name" {
-#     type = string
-#     description = "The name of the kafka cluster topic name"
-# }
-
-# variable "partition_count" {
-#     type = number
-#     description = "The number of partitions to create in the topic, they are like physical directories"
-# }
-
-variable "kafka_topic_prevent_destroy" {
-    type = bool
-    default = false
-    description = "This prevents Terraform from accidentally removing critical resources"
-}
-
 variable "topics" {
     type = map(object({
         partitions_count = number
         config = map(string)
     }))
     default = {}
+    description = "This helps to create a Topic resource along with the specific settings"
 }
 
-# SERVICE ACCOUNT
-# variable "service_account_name" {
-#     type = string
-#     description = "The name of the Confluent service account"
-# }
+# ACLs
+variable "resource_name_list_for_first_key" {
+    type = map(string({
+        resource_type = string
+        pattern_type = string
+        principal = string
+        host = string
+        operation = string
+        permission = string
+    }))
+    default = {}
+    description = ""
+}
 
-
-# variable "services" {
-#     type = any
-#     default = {
-#         payments = {
-#             # api_key_name = "app-manager-kafka-api-key"
-#             resource_name = ["", ""]
-#             pattern_type = "LITERAL"
-#             host = "*"
-#             operation = "READ"
-#             permission = "ALLOW"
-#         }
-#         reports = {
-#             # api_key_name = "app-manager-kafka-api-key"
-#             resource_name = ""
-#             pattern_type = "LITERAL"
-#             host = "*"
-#             operation = "WRITE"
-#             permission = "ALLOW"
-#         }
-#     }
+# variable "resource_name_list_for_2nd_key" {
+#     type = map(string({
+#         resource_type = string
+#         pattern_type = string
+#         principal = string
+#         host = string
+#         operation = string
+#         permission = string
+#     }))
+#     default = {}
+#     description = ""
 # }
