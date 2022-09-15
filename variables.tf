@@ -57,21 +57,8 @@ variable "topics" {
 }
 
 # ACLs
-variable "resource_name_list_for_first_key" {
+variable "services" {
     type = any
     default = {}
     description = ""
 }
-
-# variable "resource_name_list_for_2nd_key" {
-#     type = map(string({
-#         resource_type = string
-#         pattern_type = string
-#         principal = string
-#         host = string
-#         operation = string
-#         permission = string
-#     }))
-#     default = {}
-#     description = ""
-# }
