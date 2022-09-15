@@ -97,7 +97,7 @@ resource "confluent_service_account" "read-manager" {
   description  = "Service account to manage 'main' Kafka cluster"
 }
 
-resource "confluent_api_key" "app-manager-kafka-api-key" {
+resource "confluent_api_key" "read-manager-kafka-api-key" {
   display_name = "read-manager-kafka-api-key"
   description  = "Kafka API Key that is owned by 'read-manager' service account"
   owner {
