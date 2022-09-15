@@ -92,10 +92,10 @@ resource "confluent_kafka_topic" "main" {
 # Create Cluster API keys with restricted access
 
 # Read Access
-resource "confluent_service_account" "first-key" {
-  display_name = "${confluent_kafka_cluster.main.display_name}-first-key"
-  description  = "Service account to manage 'main' Kafka cluster"
-}
+# resource "confluent_service_account" "first-key" {
+#   display_name = "${confluent_kafka_cluster.main.display_name}-first-key"
+#   description  = "Service account to manage 'main' Kafka cluster"
+# }
 resource "confluent_kafka_acl" "first-key-on-topic" {
   for_each = var.resource_name_list_for_first_key
 
@@ -106,7 +106,7 @@ resource "confluent_kafka_acl" "first-key-on-topic" {
   resource_type = each.value["resource_type"]
   resource_name = each.key
   pattern_type  = each.value["pattern_type"]
-  principal     = "User:${confluent_service_account.first-key.id}"
+  principal     = "User:${confluent_service_account.app-manager.id}"
   host          = each.value["host"]
   operation     = each.value["operation"]
   permission    = each.value["permission"]
