@@ -97,7 +97,7 @@ resource "confluent_service_account" "first-key" {
   description  = "Service account to manage 'main' Kafka cluster"
 }
 resource "confluent_kafka_acl" "first-key-on-topic" {
-  for_each = toset(var.resource_name_list_for_first_key)
+  for_each = var.resource_name_list_for_first_key
 
   kafka_cluster {
     id = confluent_kafka_cluster.main.id

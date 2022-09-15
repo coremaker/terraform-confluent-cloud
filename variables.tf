@@ -59,7 +59,7 @@ variable "topics" {
 # ACLs
 variable "resource_name_list_for_first_key" {
     type = any
-    default = [{}]
+    default = {}
     description = ""
 }
 
