@@ -1,21 +1,26 @@
 locals {
-    read_topic_pairs = [
-        for k, v in var.services : [
-            for topic in v.readTopics : {
+    read_topic_pairs = flatten([
+        for service in var.services : [
+            for topic in service.readTopics : {
                 topic = topic
-                name = k
+                name = service.name
             }
         ]
-    ]
-    write_topic_pairs = [
-        for k, v in var.services : [
-            for topic in v.writeTopics : {
+    ])
+    write_topic_pairs = flatten([
+        for service in var.services : [
+            for topic in service.writeTopics : {
                 topic = topic
-                name = k
+                name = service.name
             }
         ]
-    ]
+    ])
+    services = {
+        for service in var.services :
+        service.name => service
+    }
 }
+    
 
 # Create envinroment resource
 resource "confluent_environment" "main" {
@@ -197,7 +202,7 @@ resource "confluent_kafka_acl" "write-on-topic" {
   resource_type = "TOPIC"
   resource_name = local.write_topic_pairs[each.value]["topic"]
   pattern_type  = "LITERAL"
-  principal     = "User:${confluent_service_account.write-manager.id}"
+  principal     = "User:${confluent_service_account.writes-manager.id}"
   host          = "*"
   operation     = "WRITE"
   permission    = "ALLOW"

@@ -59,6 +59,6 @@ variable "topics" {
 # ACLs
 variable "services" {
     type = any
-    default = {}
-    description = ""
+    default = []   
+    description = "" 
 }
