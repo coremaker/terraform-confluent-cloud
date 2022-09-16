@@ -1,3 +1,22 @@
+locals {
+    read_topic_pairs = [
+        for k, v in var.services : [
+            for topic in v.read_topic_pairs : {
+                topic = topic
+                name = k
+            }
+        ]
+    ]
+    write_topic_pairs = [
+        for k, v in var.services : [
+            for topic in v.write_topic_pairs : {
+                topic = topic
+                name = k
+            }
+        ]
+    ]
+}
+
 # Create envinroment resource
 resource "confluent_environment" "main" {
   display_name = var.confluent_environment_name
@@ -118,16 +137,16 @@ resource "confluent_api_key" "read-manager-kafka-api-key" {
 }
 
 resource "confluent_kafka_acl" "read-on-topic" {
-  for_each = var.services
+  for_each = toset(keys({for i, r in local.read_topic_pairs: i => r}))
 
   kafka_cluster {
     id = confluent_kafka_cluster.main.id
   }
 
   resource_type = "TOPIC"
-  resource_name = each.value["readTopics"]
+  resource_name = local.read_topic_pairs[each.value]["topic"]
   pattern_type  = "LITERAL"
-  principal     = "User:${confluent_service_account.read-manager.id}"
+  principal     = "User:${confluent_service_account.read-manager[local.read_topic_pairs[each_value]["name"]].id}"
   host          = "*"
   operation     = "READ"
   permission    = "ALLOW"
@@ -169,7 +188,7 @@ resource "confluent_api_key" "write-manager-api-key" {
 }
 
 resource "confluent_kafka_acl" "write-on-topic" {
-  for_each = var.services
+  for_each = toset(keys({for i, r in local.write_topic_pairs: i => r}))
 
   kafka_cluster {
     id = confluent_kafka_cluster.main.id
@@ -178,7 +197,7 @@ resource "confluent_kafka_acl" "write-on-topic" {
   resource_type = "TOPIC"
   resource_name = each.value["writeTopics"]
   pattern_type  = "LITERAL"
-  principal     = "User:${confluent_service_account.write-manager.id}"
+  principal     = "User:${confluent_service_account.write-manager[local.write_topic_pairs[each_value]["name"]].id}"
   host          = "*"
   operation     = "WRITE"
   permission    = "ALLOW"
