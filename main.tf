@@ -146,7 +146,7 @@ resource "confluent_kafka_acl" "read-on-topic" {
   resource_type = "TOPIC"
   resource_name = local.read_topic_pairs[each.value]["topic"]
   pattern_type  = "LITERAL"
-  principal     = "User:${confluent_service_account.read-manager[local.read_topic_pairs[each_value]["name"]].id}"
+  principal     = "User:${confluent_service_account.read-manager.id}"
   host          = "*"
   operation     = "READ"
   permission    = "ALLOW"
@@ -197,7 +197,7 @@ resource "confluent_kafka_acl" "write-on-topic" {
   resource_type = "TOPIC"
   resource_name = each.value["writeTopics"]
   pattern_type  = "LITERAL"
-  principal     = "User:${confluent_service_account.write-manager[local.write_topic_pairs[each_value]["name"]].id}"
+  principal     = "User:${confluent_service_account.write-manager.id}"
   host          = "*"
   operation     = "WRITE"
   permission    = "ALLOW"
