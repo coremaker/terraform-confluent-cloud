@@ -137,14 +137,14 @@ resource "confluent_api_key" "read-manager-kafka-api-key" {
 }
 
 resource "confluent_kafka_acl" "read-on-topic" {
-  for_each = toset(keys({for i, r in local.read_topic_pairs: i => r}))
+  for_each = local.read_topic_pairs
 
   kafka_cluster {
     id = confluent_kafka_cluster.main.id
   }
 
   resource_type = "TOPIC"
-  resource_name = local.read_topic_pairs[each.value]["topic"]
+  resource_name = each.value["topic"]
   pattern_type  = "LITERAL"
   principal     = "User:${confluent_service_account.read-manager.id}"
   host          = "*"
@@ -188,14 +188,14 @@ resource "confluent_api_key" "write-manager-api-key" {
 }
 
 resource "confluent_kafka_acl" "write-on-topic" {
-  for_each = toset(keys({for i, r in local.write_topic_pairs: i => r}))
+  for_each = local.write_topic_pairs
 
   kafka_cluster {
     id = confluent_kafka_cluster.main.id
   }
 
   resource_type = "TOPIC"
-  resource_name = each.value["writeTopics"]
+  resource_name = each.value["topic"]
   pattern_type  = "LITERAL"
   principal     = "User:${confluent_service_account.write-manager.id}"
   host          = "*"
