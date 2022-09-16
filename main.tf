@@ -1,7 +1,7 @@
 locals {
     read_topic_pairs = [
         for k, v in var.services : [
-            for topic in v.read_topic_pairs : {
+            for topic in v.readTopics : {
                 topic = topic
                 name = k
             }
@@ -9,7 +9,7 @@ locals {
     ]
     write_topic_pairs = [
         for k, v in var.services : [
-            for topic in v.write_topic_pairs : {
+            for topic in v.writeTopics : {
                 topic = topic
                 name = k
             }
