@@ -144,7 +144,7 @@ resource "confluent_kafka_acl" "read-on-topic" {
   }
 
   resource_type = "TOPIC"
-  resource_name = each.value["topic"]
+  resource_name = local.read_topic_pairs[each.value]["topic"]
   pattern_type  = "LITERAL"
   principal     = "User:${confluent_service_account.read-manager.id}"
   host          = "*"
@@ -195,7 +195,7 @@ resource "confluent_kafka_acl" "write-on-topic" {
   }
 
   resource_type = "TOPIC"
-  resource_name = each.value["topic"]
+  resource_name = local.write_topic_pairs[each.value]["topic"]
   pattern_type  = "LITERAL"
   principal     = "User:${confluent_service_account.write-manager.id}"
   host          = "*"
