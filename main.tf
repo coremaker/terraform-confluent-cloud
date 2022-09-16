@@ -137,7 +137,7 @@ resource "confluent_api_key" "read-manager-kafka-api-key" {
 }
 
 resource "confluent_kafka_acl" "read-on-topic" {
-  for_each = local.read_topic_pairs
+  for_each = toset(local.read_topic_pairs)
 
   kafka_cluster {
     id = confluent_kafka_cluster.main.id
@@ -188,7 +188,7 @@ resource "confluent_api_key" "write-manager-api-key" {
 }
 
 resource "confluent_kafka_acl" "write-on-topic" {
-  for_each = local.write_topic_pairs
+  for_each = toset(local.write_topic_pairs)
 
   kafka_cluster {
     id = confluent_kafka_cluster.main.id
