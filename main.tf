@@ -117,7 +117,7 @@ resource "confluent_service_account" "main" {
   for_each = local.services
 
   display_name = each.key
-  description  = "Service account used by the  ${each.key} service on ${confluent_kafka_cluster[display_name]} cluster"
+  description  = "Service account used by the  ${each.key} service on ${confluent_kafka_cluster.main[display_name]} cluster"
 }
 
 resource "confluent_api_key" "app-consumer-kafka-api-key" {
