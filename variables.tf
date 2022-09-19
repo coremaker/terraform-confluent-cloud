@@ -57,8 +57,16 @@ variable "topics" {
 }
 
 # ACLs
+# variable "services" {
+#     type = any
+#     default = []   
+#     description = "The variable that defines all the services(API Keys) needed " 
+# }
 variable "services" {
-    type = any
-    default = []   
-    description = "" 
+  type = list(object({
+      name = string
+      readTopics = list(string)
+      writeTopics = list(string)
+  }))
+  default = []
 }
