@@ -289,8 +289,8 @@ resource "confluent_kafka_acl" "read" {
   }
 
   credentials {
-    key    = confluent_api_key.kafka-manager.id
-    secret = confluent_api_key.kafka-manager.secret
+    key    = confluent_api_key[each.key].id
+    secret = confluent_api_key[each.key].secret
   }
 }
 
@@ -311,8 +311,8 @@ resource "confluent_kafka_acl" "write" {
   }
 
   credentials {
-    key    = confluent_api_key.kafka-manager.id
-    secret = confluent_api_key.kafka-manager.secret
+    key    = confluent_api_key[each.key].id
+    secret = confluent_api_key[each.key].secret
   }
 }
 
