@@ -56,12 +56,6 @@ variable "topics" {
     description = "This helps to create a Topic resource along with the specific settings"
 }
 
-# ACLs
-# variable "services" {
-#     type = any
-#     default = []   
-#     description = "The variable that defines all the services(API Keys) needed " 
-# }
 variable "services" {
   type = list(object({
       name = string
@@ -69,4 +63,5 @@ variable "services" {
       writeTopics = list(string)
   }))
   default = []
+  description = "The variable that defines all the services(API Keys) needed to create the restricted access on the ACLs"
 }
