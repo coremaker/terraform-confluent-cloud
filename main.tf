@@ -46,8 +46,8 @@ resource "confluent_kafka_cluster" "main" {
   dynamic "dedicated" {
     for_each = var.kafka_cluster_type == "dedicated" ? [1] : []
     content {
-      cku            = var.dedicated_cluster_cku
-      encryption_key = var.dedicated_encryption_key
+      cku = var.dedicated_cluster_cku
+      # encryption_key = var.dedicated_encryption_key
     }
   }
 

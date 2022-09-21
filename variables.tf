@@ -7,7 +7,7 @@ variable "confluent_environment_name" {
 # CLUSTER
 variable "kafka_cluster_type" {
   type        = string
-  default     = "standard"
+  default     = "dedicated"
   description = "The configuration of the Kafka cluster."
 }
 
@@ -40,11 +40,11 @@ variable "dedicated_cluster_cku" {
   description = "The number of Confluent Kafka Units for Dedicated cluster types. The minimum number of CKUs for SINGLE_ZONE dedicated clusters is 1 whereas MULTI_ZONE dedicated clusters must have more than 2 CKUs."
 }
 
-variable "dedicated_encryption_key" {
-  type        = string
-  default     = ""
-  description = "The ID of the encryption key that is used to encrypt the data in the Kafka cluster."
-}
+# variable "dedicated_encryption_key" {
+#   type        = string
+#   default     = ""
+#   description = "The ID of the encryption key that is used to encrypt the data in the Kafka cluster."
+# }
 
 # TOPICS
 variable "topics" {
