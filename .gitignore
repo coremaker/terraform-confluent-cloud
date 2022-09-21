@@ -18,3 +18,4 @@ terraform.tfstate
 .local
 .terraform
 .terraform.lock.hcl
+.terraform.tfstate.lock.info
