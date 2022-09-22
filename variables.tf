@@ -30,7 +30,6 @@ variable "kafka_cluster_cloud_provider" {
 
 variable "kafka_cluster_region" {
   type        = string
-  default     = ""
   description = "The configuration region of the Kafka cluster."
 }
 
