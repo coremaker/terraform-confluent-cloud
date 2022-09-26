@@ -1,6 +1,6 @@
 locals {
   read_topic_pairs = flatten([
-    for service in var.services : [
+    for service in var.services_acls : [
       for topic in service.readTopics : {
         topic = topic
         name  = service.name
@@ -8,28 +8,28 @@ locals {
     ]
   ])
   write_topic_pairs = flatten([
-    for service in var.services : [
+    for service in var.services_acls : [
       for topic in service.writeTopics : {
         topic = topic
         name  = service.name
       }
     ]
   ])
-  services = {
-    for service in var.services :
+  iam_services = {
+    for service in var.services_acls :
     service.name => service
   }
 }
 
 resource "confluent_service_account" "main" {
-  for_each = local.services
+  for_each = local.iam_services
 
   display_name = each.key
   description  = "Service account used by the ${each.key} service on ${confluent_kafka_cluster.main.display_name} cluster"
 }
 
 resource "confluent_api_key" "app_consumer_kafka_api_key" {
-  for_each = local.services
+  for_each = local.iam_services
 
   display_name = "${each.key}-key"
   description  = "Kafka API Key that is owned by ${each.key} service account"

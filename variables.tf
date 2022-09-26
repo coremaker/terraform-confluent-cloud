@@ -1,5 +1,5 @@
 # ENVIRONMENT
-variable "confluent_environment_name" {
+variable "environment_name" {
   type        = string
   description = "The name of the environament you want to use."
 }
@@ -50,7 +50,7 @@ variable "topics" {
 }
 
 # API Keys
-variable "services" {
+variable "services_acls" {
   type = list(object({
     name        = string
     readTopics  = list(string)

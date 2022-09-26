@@ -7,7 +7,7 @@ This is a terraform module for Confluent Cloud provider which helps you build en
 # Examples
 
 ```terraform
-module "kubernetes" {
+module "kafka" {
   source = "github.com/coremaker/terraform-confluent-cloud.git"
 
   confluent_environment_name = "dev"
@@ -98,14 +98,14 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_confluent_environment_name"></a> [confluent\_environment\_name](#input\_confluent\_environment\_name) | The name of the environament you want to use. | `string` | n/a | yes |
 | <a name="input_dedicated_cluster_cku"></a> [dedicated\_cluster\_cku](#input\_dedicated\_cluster\_cku) | The number of Confluent Kafka Units for Dedicated cluster types. The minimum number of CKUs for SINGLE\_ZONE dedicated clusters is 1 whereas MULTI\_ZONE dedicated clusters must have more than 2 CKUs. | `number` | `0` | no |
+| <a name="input_environment_name"></a> [environment\_name](#input\_environment\_name) | The name of the environament you want to use. | `string` | n/a | yes |
 | <a name="input_kafka_cluster_availability_zone"></a> [kafka\_cluster\_availability\_zone](#input\_kafka\_cluster\_availability\_zone) | The availability zone configuration of the Kafka cluster. Accepted values are: SINGLE\_ZONE and MULTI\_ZONE. | `string` | `"SINGLE_ZONE"` | no |
 | <a name="input_kafka_cluster_cloud_provider"></a> [kafka\_cluster\_cloud\_provider](#input\_kafka\_cluster\_cloud\_provider) | The cloud service provider that runs the Kafka cluster. The accepted values are: GCP, AWS and Azure. | `string` | `"GCP"` | no |
 | <a name="input_kafka_cluster_name"></a> [kafka\_cluster\_name](#input\_kafka\_cluster\_name) | The name of the Kafka cluster. | `string` | n/a | yes |
 | <a name="input_kafka_cluster_region"></a> [kafka\_cluster\_region](#input\_kafka\_cluster\_region) | The configuration region of the Kafka cluster. | `string` | n/a | yes |
 | <a name="input_kafka_cluster_type"></a> [kafka\_cluster\_type](#input\_kafka\_cluster\_type) | The configuration of the Kafka cluster. | `string` | `"basic"` | no |
-| <a name="input_services"></a> [services](#input\_services) | The variable that defines all the services (API Keys) needed to create the restricted access on the ACLs. | <pre>list(object({<br>    name        = string<br>    readTopics  = list(string)<br>    writeTopics = list(string)<br>  }))</pre> | `[]` | no |
+| <a name="input_services_acls"></a> [services\_acls](#input\_services\_acls) | The variable that defines all the services (API Keys) needed to create the restricted access on the ACLs. | <pre>list(object({<br>    name        = string<br>    readTopics  = list(string)<br>    writeTopics = list(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_topics"></a> [topics](#input\_topics) | This helps to create a Topic resource along with the specific settings. | <pre>map(object({<br>    partitions_count = number<br>    config           = map(string)<br>  }))</pre> | `{}` | no |
 
 ## Outputs

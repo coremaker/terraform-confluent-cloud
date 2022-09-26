@@ -1,5 +1,5 @@
 resource "confluent_environment" "main" {
-  display_name = var.confluent_environment_name
+  display_name = var.environment_name
 }
 
 resource "confluent_kafka_cluster" "main" {
