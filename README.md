@@ -6,74 +6,20 @@ This is a terraform module for Confluent Cloud provider which helps you build en
 
 # Examples
 
-```terraform
-module "kafka" {
-  source = "github.com/coremaker/terraform-confluent-cloud.git"
-
-  confluent_environment_name = "dev"
-  kafka_cluster_name = "DEV"
-  kafka_cluster_region = "us-east1"
-  topics = {
-    users = {
-        partitions_count = 4
-        config = {
-            cleanup_policy    = "compact"
-            max_message_bytes = "12345"
-            retention_ms      = "67890"
-        }
-    }
-    accounts = {
-        partitions_count = 5
-        config = {
-            cleanup_policy    = "compact"
-            max_message_bytes = "10000"
-            retention_ms      = "60000"
-        }
-    }
-    payments = {
-        partitions_count = 6
-        config = {
-            cleanup_policy    = "compact"
-            max_message_bytes = "10000"
-            retention_ms      = "60001"
-        }
-    }
-    reports = {
-        partitions_count = 8
-        config = {
-            cleanup_policy    = "compact"
-            max_message_bytes = "10330"
-            retention_ms      = "69900"
-        }
-    }     
-  }
-    services = [
-        {
-            name = "payments-service"
-            readTopics = ["users", "accounts"]
-            writeTopics = ["payments"]
-        },
-        {
-            name = "reports-service"
-            readTopics = ["payments"]
-            writeTopics = ["reports"]
-        }
-    ]
-}
-```
+Please check the examples directory where different Kafka clusters types are used.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_confluent"></a> [confluent](#requirement\_confluent) | 1.4.0 |
+| <a name="requirement_confluent"></a> [confluent](#requirement\_confluent) | 1.3.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_confluent"></a> [confluent](#provider\_confluent) | 1.4.0 |
+| <a name="provider_confluent"></a> [confluent](#provider\_confluent) | 1.3.0 |
 
 ## Modules
 
@@ -83,16 +29,16 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [confluent_api_key.app_consumer_kafka_api_key](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/api_key) | resource |
-| [confluent_api_key.cluster_admin_key](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/api_key) | resource |
-| [confluent_environment.main](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/environment) | resource |
-| [confluent_kafka_acl.read](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/kafka_acl) | resource |
-| [confluent_kafka_acl.write](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/kafka_acl) | resource |
-| [confluent_kafka_cluster.main](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/kafka_cluster) | resource |
-| [confluent_kafka_topic.main](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/kafka_topic) | resource |
-| [confluent_role_binding.cluster_admin](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/role_binding) | resource |
-| [confluent_service_account.cluster_admin](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/service_account) | resource |
-| [confluent_service_account.main](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/service_account) | resource |
+| [confluent_api_key.app_consumer_kafka_api_key](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/api_key) | resource |
+| [confluent_api_key.cluster_admin_key](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/api_key) | resource |
+| [confluent_environment.main](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/environment) | resource |
+| [confluent_kafka_acl.read](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/kafka_acl) | resource |
+| [confluent_kafka_acl.write](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/kafka_acl) | resource |
+| [confluent_kafka_cluster.main](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/kafka_cluster) | resource |
+| [confluent_kafka_topic.main](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/kafka_topic) | resource |
+| [confluent_role_binding.cluster_admin](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/role_binding) | resource |
+| [confluent_service_account.cluster_admin](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/service_account) | resource |
+| [confluent_service_account.main](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/service_account) | resource |
 
 ## Inputs
 
@@ -105,7 +51,7 @@ No modules.
 | <a name="input_kafka_cluster_name"></a> [kafka\_cluster\_name](#input\_kafka\_cluster\_name) | The name of the Kafka cluster. | `string` | n/a | yes |
 | <a name="input_kafka_cluster_region"></a> [kafka\_cluster\_region](#input\_kafka\_cluster\_region) | The configuration region of the Kafka cluster. | `string` | n/a | yes |
 | <a name="input_kafka_cluster_type"></a> [kafka\_cluster\_type](#input\_kafka\_cluster\_type) | The configuration of the Kafka cluster. | `string` | `"basic"` | no |
-| <a name="input_services_acls"></a> [services\_acls](#input\_services\_acls) | The variable that defines all the services (API Keys) needed to create the restricted access on the ACLs. | <pre>list(object({<br>    name        = string<br>    readTopics  = list(string)<br>    writeTopics = list(string)<br>  }))</pre> | `[]` | no |
+| <a name="input_services_acls"></a> [services\_acls](#input\_services\_acls) | The variable that defines all the services (API Keys) needed to create the restricted access on the ACLs. | <pre>list(object({<br>    name        = string<br>    readTopics  = optional(list(string))<br>    writeTopics = optional(list(string))<br>  }))</pre> | `[]` | no |
 | <a name="input_topics"></a> [topics](#input\_topics) | This helps to create a Topic resource along with the specific settings. | <pre>map(object({<br>    partitions_count = number<br>    config           = map(string)<br>  }))</pre> | `{}` | no |
 
 ## Outputs
