@@ -13,7 +13,7 @@ Please check the examples directory where different Kafka clusters types are use
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_confluent"></a> [confluent](#requirement\_confluent) | 1.3.0 |
+| <a name="requirement_confluent"></a> [confluent](#requirement\_confluent) | 1.4.0 |
 
 ## Providers
 
@@ -29,16 +29,16 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [confluent_api_key.app_consumer_kafka_api_key](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/api_key) | resource |
-| [confluent_api_key.cluster_admin_key](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/api_key) | resource |
-| [confluent_environment.main](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/environment) | resource |
-| [confluent_kafka_acl.read](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/kafka_acl) | resource |
-| [confluent_kafka_acl.write](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/kafka_acl) | resource |
-| [confluent_kafka_cluster.main](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/kafka_cluster) | resource |
-| [confluent_kafka_topic.main](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/kafka_topic) | resource |
-| [confluent_role_binding.cluster_admin](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/role_binding) | resource |
-| [confluent_service_account.cluster_admin](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/service_account) | resource |
-| [confluent_service_account.main](https://registry.terraform.io/providers/confluentinc/confluent/1.3.0/docs/resources/service_account) | resource |
+| [confluent_api_key.app_consumer_kafka_api_key](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/api_key) | resource |
+| [confluent_api_key.cluster_admin_key](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/api_key) | resource |
+| [confluent_environment.main](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/environment) | resource |
+| [confluent_kafka_acl.read](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/kafka_acl) | resource |
+| [confluent_kafka_acl.write](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/kafka_acl) | resource |
+| [confluent_kafka_cluster.main](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/kafka_cluster) | resource |
+| [confluent_kafka_topic.main](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/kafka_topic) | resource |
+| [confluent_role_binding.cluster_admin](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/role_binding) | resource |
+| [confluent_service_account.cluster_admin](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/service_account) | resource |
+| [confluent_service_account.main](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/service_account) | resource |
 
 ## Inputs
 
