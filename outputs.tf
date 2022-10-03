@@ -13,8 +13,8 @@ output "kafka_cluster_rest_endpoint" {
 output "services_keys_list" {
   value = [
     for key in confluent_api_key.services_api_keys : {
-      name = key.display_name
-      id = key.id
+      name   = key.display_name
+      id     = key.id
       secret = key.secret
     }
   ]
