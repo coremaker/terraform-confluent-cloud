@@ -10,7 +10,7 @@ output "kafka_cluster_rest_endpoint" {
   description = "The REST endpoint of the Kafka cluster."
 }
 
-output "services_keys_map" {
+output "services_keys_list" {
   value = [
     for key in confluent_api_key.services_api_keys : {
       name = key.display_name
@@ -18,5 +18,6 @@ output "services_keys_map" {
       secret = key.secret
     }
   ]
-  description = "Map with service api keys pairs"
+  sensitive   = true
+  description = "List with paired objects for service keys"
 }
