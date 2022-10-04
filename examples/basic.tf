@@ -8,33 +8,33 @@ module "basic" {
     users = {
       partitions_count = 4
       config = {
-        cleanup_policy    = "compact"
-        max_message_bytes = "12345"
-        retention_ms      = "67890"
+        "cleanup.policy"    = "compact"
+        "max.message.bytes" = "12345"
+        "retention.ms"      = "67890"
       }
     }
     accounts = {
       partitions_count = 5
       config = {
-        cleanup_policy    = "compact"
-        max_message_bytes = "10000"
-        retention_ms      = "60000"
+        "cleanup.policy"    = "compact"
+        "max.message.bytes" = "10000"
+        "retention.ms"      = "60000"
       }
     }
     payments = {
       partitions_count = 6
       config = {
-        cleanup_policy    = "compact"
-        max_message_bytes = "10000"
-        retention_ms      = "60001"
+        "cleanup.policy"    = "compact"
+        "max.message.bytes" = "10000"
+        "retention.ms"      = "60001"
       }
     }
     reports = {
       partitions_count = 8
       config = {
-        cleanup_policy    = "compact"
-        max_message_bytes = "10330"
-        retention_ms      = "69900"
+        "cleanup.policy"    = "compact"
+        "max.message.bytes" = "10330"
+        "retention.ms"      = "69900"
       }
     }
   }
