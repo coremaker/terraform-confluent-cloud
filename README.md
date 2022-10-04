@@ -19,7 +19,7 @@ Please check the examples directory where different Kafka clusters types are use
 
 | Name | Version |
 |------|---------|
-| <a name="provider_confluent"></a> [confluent](#provider\_confluent) | 1.3.0 |
+| <a name="provider_confluent"></a> [confluent](#provider\_confluent) | 1.4.0 |
 
 ## Modules
 
@@ -29,8 +29,8 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [confluent_api_key.app_consumer_kafka_api_key](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/api_key) | resource |
 | [confluent_api_key.cluster_admin_key](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/api_key) | resource |
+| [confluent_api_key.services_api_keys](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/api_key) | resource |
 | [confluent_environment.main](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/environment) | resource |
 | [confluent_kafka_acl.read](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/kafka_acl) | resource |
 | [confluent_kafka_acl.write](https://registry.terraform.io/providers/confluentinc/confluent/1.4.0/docs/resources/kafka_acl) | resource |
@@ -56,5 +56,9 @@ No modules.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_kafka_cluster_bootstrap_endpoint"></a> [kafka\_cluster\_bootstrap\_endpoint](#output\_kafka\_cluster\_bootstrap\_endpoint) | The bootstrap endpoint used by Kafka clients to connect to the Kafka cluster. |
+| <a name="output_kafka_cluster_rest_endpoint"></a> [kafka\_cluster\_rest\_endpoint](#output\_kafka\_cluster\_rest\_endpoint) | The REST endpoint of the Kafka cluster. |
+| <a name="output_services_keys_list"></a> [services\_keys\_list](#output\_services\_keys\_list) | List with paired objects for service keys |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

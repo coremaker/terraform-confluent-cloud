@@ -28,7 +28,7 @@ resource "confluent_service_account" "main" {
   description  = "Service account used by the ${each.key} service on ${confluent_kafka_cluster.main.display_name} cluster"
 }
 
-resource "confluent_api_key" "app_consumer_kafka_api_key" {
+resource "confluent_api_key" "services_api_keys" {
   for_each = local.iam_services
 
   display_name = "${each.key}-key"
