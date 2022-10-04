@@ -4,6 +4,10 @@ plugin "google" {
     source  = "github.com/terraform-linters/tflint-ruleset-google"
 }
 
+rule "terraform_required_version" {
+  enabled = true
+}
+
 rule "terraform_naming_convention" {
     enabled = true
 }
