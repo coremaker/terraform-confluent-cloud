@@ -13,13 +13,14 @@ Please check the examples directory where different Kafka clusters types are use
 
 | Name | Version |
 |------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
 | <a name="requirement_confluent"></a> [confluent](#requirement\_confluent) | 1.4.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_confluent"></a> [confluent](#provider\_confluent) | 1.4.0 |
+| <a name="provider_confluent"></a> [confluent](#provider\_confluent) | 1.3.0 |
 
 ## Modules
 
@@ -51,7 +52,7 @@ No modules.
 | <a name="input_kafka_cluster_name"></a> [kafka\_cluster\_name](#input\_kafka\_cluster\_name) | The name of the Kafka cluster. | `string` | n/a | yes |
 | <a name="input_kafka_cluster_region"></a> [kafka\_cluster\_region](#input\_kafka\_cluster\_region) | The configuration region of the Kafka cluster. | `string` | n/a | yes |
 | <a name="input_kafka_cluster_type"></a> [kafka\_cluster\_type](#input\_kafka\_cluster\_type) | The configuration of the Kafka cluster. | `string` | `"basic"` | no |
-| <a name="input_services_acls"></a> [services\_acls](#input\_services\_acls) | The variable that defines all the services (API Keys) needed to create the restricted access on the ACLs. | <pre>list(object({<br>    name        = string<br>    readTopics  = optional(list(string))<br>    writeTopics = optional(list(string))<br>  }))</pre> | `[]` | no |
+| <a name="input_services_acls"></a> [services\_acls](#input\_services\_acls) | The variable that defines all the services (API Keys) needed to create the restricted access on the ACLs. | <pre>list(object({<br>    name        = string<br>    readTopics  = optional(list(string), [])<br>    writeTopics = optional(list(string), [])<br>  }))</pre> | `[]` | no |
 | <a name="input_topics"></a> [topics](#input\_topics) | This helps to create a Topic resource along with the specific settings. | <pre>map(object({<br>    partitions_count = number<br>    config           = map(string)<br>  }))</pre> | `{}` | no |
 
 ## Outputs
