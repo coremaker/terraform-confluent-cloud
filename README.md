@@ -59,6 +59,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_environment_id"></a> [environment\_id](#output\_environment\_id) | n/a |
 | <a name="output_kafka_cluster_bootstrap_endpoint"></a> [kafka\_cluster\_bootstrap\_endpoint](#output\_kafka\_cluster\_bootstrap\_endpoint) | The bootstrap endpoint used by Kafka clients to connect to the Kafka cluster. |
 | <a name="output_kafka_cluster_rest_endpoint"></a> [kafka\_cluster\_rest\_endpoint](#output\_kafka\_cluster\_rest\_endpoint) | The REST endpoint of the Kafka cluster. |
 | <a name="output_services_keys_list"></a> [services\_keys\_list](#output\_services\_keys\_list) | List with paired objects for service keys |

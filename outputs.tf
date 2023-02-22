@@ -21,3 +21,7 @@ output "services_keys_list" {
   sensitive   = true
   description = "List with paired objects for service keys"
 }
+
+output "environment_id" {
+  value = confluent_environment.main.id
+}
