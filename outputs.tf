@@ -25,3 +25,15 @@ output "services_keys_list" {
 output "environment_id" {
   value = confluent_environment.main.id
 }
+
+output "cluster_admin_id" {
+  value = confluent_service_account.cluster_admin.id
+}
+
+output "cluster_admin_api_version" {
+  value = confluent_service_account.cluster_admin.api_version
+}
+
+output "cluster_admin_kind" {
+  value = confluent_service_account.cluster_admin.kind
+}

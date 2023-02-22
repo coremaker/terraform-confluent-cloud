@@ -59,6 +59,9 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_cluster_admin_api_version"></a> [cluster\_admin\_api\_version](#output\_cluster\_admin\_api\_version) | n/a |
+| <a name="output_cluster_admin_id"></a> [cluster\_admin\_id](#output\_cluster\_admin\_id) | n/a |
+| <a name="output_cluster_admin_kind"></a> [cluster\_admin\_kind](#output\_cluster\_admin\_kind) | n/a |
 | <a name="output_environment_id"></a> [environment\_id](#output\_environment\_id) | n/a |
 | <a name="output_kafka_cluster_bootstrap_endpoint"></a> [kafka\_cluster\_bootstrap\_endpoint](#output\_kafka\_cluster\_bootstrap\_endpoint) | The bootstrap endpoint used by Kafka clients to connect to the Kafka cluster. |
 | <a name="output_kafka_cluster_rest_endpoint"></a> [kafka\_cluster\_rest\_endpoint](#output\_kafka\_cluster\_rest\_endpoint) | The REST endpoint of the Kafka cluster. |
