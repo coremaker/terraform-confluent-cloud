@@ -37,3 +37,4 @@ output "cluster_admin_api_version" {
 output "cluster_admin_kind" {
   value = confluent_service_account.cluster_admin.kind
 }
+
