@@ -52,11 +52,12 @@ variable "topics" {
 # API Keys
 variable "services_acls" {
   type = list(object({
-    name        = string
-    readTopics  = optional(list(string), [])
-    writeTopics = optional(list(string), [])
+    name           = string
+    readTopics     = optional(list(string), [])
+    writeTopics    = optional(list(string), [])
+    clusterAccess  = optional(list(string), [])
+    consumerGroups = optional(list(string), [])
   }))
   default     = []
   description = "The variable that defines all the services (API Keys) needed to create the restricted access on the ACLs."
 }
-
