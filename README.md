@@ -20,7 +20,7 @@ Please check the examples directory where different Kafka clusters types are use
 
 | Name | Version |
 |------|---------|
-| <a name="provider_confluent"></a> [confluent](#provider\_confluent) | 1.3.0 |
+| <a name="provider_confluent"></a> [confluent](#provider\_confluent) | 1.36.0 |
 
 ## Modules
 
@@ -33,6 +33,10 @@ No modules.
 | [confluent_api_key.cluster_admin_key](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/api_key) | resource |
 | [confluent_api_key.services_api_keys](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/api_key) | resource |
 | [confluent_environment.main](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/environment) | resource |
+| [confluent_kafka_acl.cluster_describe_configs](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/kafka_acl) | resource |
+| [confluent_kafka_acl.consumer_group_describe](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/kafka_acl) | resource |
+| [confluent_kafka_acl.consumer_group_read](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/kafka_acl) | resource |
+| [confluent_kafka_acl.consumer_group_write](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/kafka_acl) | resource |
 | [confluent_kafka_acl.read](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/kafka_acl) | resource |
 | [confluent_kafka_acl.write](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/kafka_acl) | resource |
 | [confluent_kafka_cluster.main](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/kafka_cluster) | resource |
@@ -52,7 +56,7 @@ No modules.
 | <a name="input_kafka_cluster_name"></a> [kafka\_cluster\_name](#input\_kafka\_cluster\_name) | The name of the Kafka cluster. | `string` | n/a | yes |
 | <a name="input_kafka_cluster_region"></a> [kafka\_cluster\_region](#input\_kafka\_cluster\_region) | The configuration region of the Kafka cluster. | `string` | n/a | yes |
 | <a name="input_kafka_cluster_type"></a> [kafka\_cluster\_type](#input\_kafka\_cluster\_type) | The configuration of the Kafka cluster. | `string` | `"basic"` | no |
-| <a name="input_services_acls"></a> [services\_acls](#input\_services\_acls) | The variable that defines all the services (API Keys) needed to create the restricted access on the ACLs. | <pre>list(object({<br>    name        = string<br>    readTopics  = optional(list(string), [])<br>    writeTopics = optional(list(string), [])<br>  }))</pre> | `[]` | no |
+| <a name="input_services_acls"></a> [services\_acls](#input\_services\_acls) | The variable that defines all the services (API Keys) needed to create the restricted access on the ACLs. | <pre>list(object({<br>    name           = string<br>    readTopics     = optional(list(string), [])<br>    writeTopics    = optional(list(string), [])<br>    clusterAccess  = optional(list(string), [])<br>    consumerGroups = optional(list(string), [])<br>  }))</pre> | `[]` | no |
 | <a name="input_topics"></a> [topics](#input\_topics) | This helps to create a Topic resource along with the specific settings. | <pre>map(object({<br>    partitions_count = number<br>    config           = map(string)<br>  }))</pre> | `{}` | no |
 
 ## Outputs
