@@ -61,3 +61,22 @@ variable "services_acls" {
   default     = []
   description = "The variable that defines all the services (API Keys) needed to create the restricted access on the ACLs."
 }
+
+# SCHEMA REGISTRY
+variable "schema_registry_cloud" {
+  type        = string
+  default     = "GCP"
+  description = "Cloud Provider for Schema Registry"
+}
+
+variable "schema_registry_region" {
+  type        = string
+  default     = "europe-west3"
+  description = "Region for Schema Registry"
+}
+
+variable "schema_registry_package" {
+  type        = string
+  default     = "ESSENTIALS"
+  description = "he type of the billing package. Accepted values are: ESSENTIALS and ADVANCED."
+}
