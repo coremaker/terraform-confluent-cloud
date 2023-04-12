@@ -20,7 +20,7 @@ Please check the examples directory where different Kafka clusters types are use
 
 | Name | Version |
 |------|---------|
-| <a name="provider_confluent"></a> [confluent](#provider\_confluent) | 1.36.0 |
+| <a name="provider_confluent"></a> [confluent](#provider\_confluent) | 1.39.0 |
 
 ## Modules
 

@@ -2,8 +2,9 @@ locals {
   read_topic_pairs = flatten([
     for service in var.services_acls : [
       for topic in service.readTopics : {
-        topic = topic
-        name  = service.name
+        topic  = topic
+        name   = service.name
+        rsName = join("_", [service.name, topic])
       }
     ]
   ])
@@ -11,8 +12,9 @@ locals {
   write_topic_pairs = flatten([
     for service in var.services_acls : [
       for topic in service.writeTopics : {
-        topic = topic
-        name  = service.name
+        topic  = topic
+        name   = service.name
+        rsName = join("_", [service.name, topic])
       }
     ]
   ])
@@ -27,6 +29,7 @@ locals {
       for operation in service.clusterAccess : {
         operation = operation
         name      = service.name
+        rsName    = join("_", [service.name, operation])
       }
     ]
   ])
@@ -36,6 +39,7 @@ locals {
       for consumer in service.consumerGroups : {
         consumer = consumer
         name     = service.name
+        rsName   = join("_", [service.name, consumer])
       }
     ]
   ])
@@ -72,12 +76,12 @@ resource "confluent_api_key" "services_api_keys" {
 }
 
 resource "confluent_kafka_acl" "read" {
-  for_each = toset(keys({ for i, r in local.read_topic_pairs : i => r }))
+  for_each = { for i in local.read_topic_pairs : i["rsName"] => i }
 
   resource_type = "TOPIC"
-  resource_name = local.read_topic_pairs[each.value]["topic"]
+  resource_name = each.value["topic"]
   pattern_type  = "LITERAL"
-  principal     = "User:${confluent_service_account.main[local.read_topic_pairs[each.value]["name"]].id}"
+  principal     = "User:${confluent_service_account.main[each.value["name"]].id}"
   host          = "*"
   operation     = "READ"
   permission    = "ALLOW"
@@ -94,12 +98,12 @@ resource "confluent_kafka_acl" "read" {
 }
 
 resource "confluent_kafka_acl" "write" {
-  for_each = toset(keys({ for i, r in local.write_topic_pairs : i => r }))
+  for_each = { for i in local.write_topic_pairs : i["rsName"] => i }
 
   resource_type = "TOPIC"
-  resource_name = local.write_topic_pairs[each.value]["topic"]
+  resource_name = each.value["topic"]
   pattern_type  = "LITERAL"
-  principal     = "User:${confluent_service_account.main[local.write_topic_pairs[each.value]["name"]].id}"
+  principal     = "User:${confluent_service_account.main[each.value["name"]].id}"
   host          = "*"
   operation     = "WRITE"
   permission    = "ALLOW"
@@ -116,14 +120,14 @@ resource "confluent_kafka_acl" "write" {
 }
 
 resource "confluent_kafka_acl" "cluster_configs" {
-  for_each = toset(keys({ for i, r in local.cluster_operation_access : i => r }))
+  for_each = { for i in local.cluster_operation_access : i["rsName"] => i }
 
   resource_type = "CLUSTER"
   resource_name = "kafka-cluster"
   pattern_type  = "LITERAL"
-  principal     = "User:${confluent_service_account.main[local.cluster_operation_access[each.value]["name"]].id}"
+  principal     = "User:${confluent_service_account.main[each.value["name"]].id}"
   host          = "*"
-  operation     = local.cluster_operation_access[each.value]["operation"]
+  operation     = each.value["operation"]
   permission    = "ALLOW"
   rest_endpoint = confluent_kafka_cluster.main.rest_endpoint
 
@@ -138,12 +142,12 @@ resource "confluent_kafka_acl" "cluster_configs" {
 }
 
 resource "confluent_kafka_acl" "consumer_group_read" {
-  for_each = toset(keys({ for i, r in local.consumer_group_access : i => r }))
+  for_each = { for i in local.consumer_group_access : i["rsName"] => i }
 
   resource_type = "GROUP"
-  resource_name = local.consumer_group_access[each.value]["consumer"]
+  resource_name = each.value["consumer"]
   pattern_type  = "LITERAL"
-  principal     = "User:${confluent_service_account.main[local.consumer_group_access[each.value]["name"]].id}"
+  principal     = "User:${confluent_service_account.main[each.value["name"]].id}"
   host          = "*"
   operation     = "READ"
   permission    = "ALLOW"
@@ -160,12 +164,12 @@ resource "confluent_kafka_acl" "consumer_group_read" {
 }
 
 resource "confluent_kafka_acl" "consumer_group_write" {
-  for_each = toset(keys({ for i, r in local.consumer_group_access : i => r }))
+  for_each = { for i in local.consumer_group_access : i["rsName"] => i }
 
   resource_type = "GROUP"
-  resource_name = local.consumer_group_access[each.value]["consumer"]
+  resource_name = each.value["consumer"]
   pattern_type  = "LITERAL"
-  principal     = "User:${confluent_service_account.main[local.consumer_group_access[each.value]["name"]].id}"
+  principal     = "User:${confluent_service_account.main[each.value["name"]].id}"
   host          = "*"
   operation     = "WRITE"
   permission    = "ALLOW"
@@ -182,12 +186,12 @@ resource "confluent_kafka_acl" "consumer_group_write" {
 }
 
 resource "confluent_kafka_acl" "consumer_group_describe" {
-  for_each = toset(keys({ for i, r in local.consumer_group_access : i => r }))
+  for_each = { for i in local.consumer_group_access : i["rsName"] => i }
 
   resource_type = "GROUP"
-  resource_name = local.consumer_group_access[each.value]["consumer"]
+  resource_name = each.value["consumer"]
   pattern_type  = "LITERAL"
-  principal     = "User:${confluent_service_account.main[local.consumer_group_access[each.value]["name"]].id}"
+  principal     = "User:${confluent_service_account.main[each.value["name"]].id}"
   host          = "*"
   operation     = "DESCRIBE"
   permission    = "ALLOW"
@@ -204,12 +208,12 @@ resource "confluent_kafka_acl" "consumer_group_describe" {
 }
 
 resource "confluent_kafka_acl" "consumer_group_delete" {
-  for_each = toset(keys({ for i, r in local.consumer_group_access : i => r }))
+  for_each = { for i in local.consumer_group_access : i["rsName"] => i }
 
   resource_type = "GROUP"
-  resource_name = local.consumer_group_access[each.value]["consumer"]
+  resource_name = each.value["consumer"]
   pattern_type  = "LITERAL"
-  principal     = "User:${confluent_service_account.main[local.consumer_group_access[each.value]["name"]].id}"
+  principal     = "User:${confluent_service_account.main[each.value["name"]].id}"
   host          = "*"
   operation     = "DELETE"
   permission    = "ALLOW"
