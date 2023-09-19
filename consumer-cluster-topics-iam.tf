@@ -146,7 +146,7 @@ resource "confluent_kafka_acl" "consumer_group_read" {
 
   resource_type = "GROUP"
   resource_name = each.value["consumer"]
-  pattern_type  = "PREFIXED"
+  pattern_type  = "LITERAL"
   principal     = "User:${confluent_service_account.main[each.value["name"]].id}"
   host          = "*"
   operation     = "READ"
@@ -168,7 +168,7 @@ resource "confluent_kafka_acl" "consumer_group_write" {
 
   resource_type = "GROUP"
   resource_name = each.value["consumer"]
-  pattern_type  = "PREFIXED"
+  pattern_type  = "LITERAL"
   principal     = "User:${confluent_service_account.main[each.value["name"]].id}"
   host          = "*"
   operation     = "WRITE"
@@ -190,7 +190,7 @@ resource "confluent_kafka_acl" "consumer_group_describe" {
 
   resource_type = "GROUP"
   resource_name = each.value["consumer"]
-  pattern_type  = "PREFIXED"
+  pattern_type  = "LITERAL"
   principal     = "User:${confluent_service_account.main[each.value["name"]].id}"
   host          = "*"
   operation     = "DESCRIBE"
@@ -212,7 +212,7 @@ resource "confluent_kafka_acl" "consumer_group_delete" {
 
   resource_type = "GROUP"
   resource_name = each.value["consumer"]
-  pattern_type  = "PREFIXED"
+  pattern_type  = "LITERAL"
   principal     = "User:${confluent_service_account.main[each.value["name"]].id}"
   host          = "*"
   operation     = "DELETE"
