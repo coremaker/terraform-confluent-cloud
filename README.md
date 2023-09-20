@@ -20,7 +20,7 @@ Please check the examples directory where different Kafka clusters types are use
 
 | Name | Version |
 |------|---------|
-| <a name="provider_confluent"></a> [confluent](#provider\_confluent) | 1.39.0 |
+| <a name="provider_confluent"></a> [confluent](#provider\_confluent) | 1.52.0 |
 
 ## Modules
 
@@ -39,6 +39,10 @@ No modules.
 | [confluent_kafka_acl.consumer_group_describe](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/kafka_acl) | resource |
 | [confluent_kafka_acl.consumer_group_read](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/kafka_acl) | resource |
 | [confluent_kafka_acl.consumer_group_write](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/kafka_acl) | resource |
+| [confluent_kafka_acl.prefixed_consumer_group_delete](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/kafka_acl) | resource |
+| [confluent_kafka_acl.prefixed_consumer_group_describe](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/kafka_acl) | resource |
+| [confluent_kafka_acl.prefixed_consumer_group_read](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/kafka_acl) | resource |
+| [confluent_kafka_acl.prefixed_consumer_group_write](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/kafka_acl) | resource |
 | [confluent_kafka_acl.read](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/kafka_acl) | resource |
 | [confluent_kafka_acl.write](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/kafka_acl) | resource |
 | [confluent_kafka_cluster.main](https://registry.terraform.io/providers/confluentinc/confluent/latest/docs/resources/kafka_cluster) | resource |
@@ -63,7 +67,7 @@ No modules.
 | <a name="input_schema_registry_cloud"></a> [schema\_registry\_cloud](#input\_schema\_registry\_cloud) | Cloud Provider for Schema Registry | `string` | `"GCP"` | no |
 | <a name="input_schema_registry_package"></a> [schema\_registry\_package](#input\_schema\_registry\_package) | he type of the billing package. Accepted values are: ESSENTIALS and ADVANCED. | `string` | `"ESSENTIALS"` | no |
 | <a name="input_schema_registry_region"></a> [schema\_registry\_region](#input\_schema\_registry\_region) | Region for Schema Registry | `string` | `"europe-west3"` | no |
-| <a name="input_services_acls"></a> [services\_acls](#input\_services\_acls) | The variable that defines all the services (API Keys) needed to create the restricted access on the ACLs. | <pre>list(object({<br>    name           = string<br>    readTopics     = optional(list(string), [])<br>    writeTopics    = optional(list(string), [])<br>    clusterAccess  = optional(list(string), [])<br>    consumerGroups = optional(list(string), [])<br>  }))</pre> | `[]` | no |
+| <a name="input_services_acls"></a> [services\_acls](#input\_services\_acls) | The variable that defines all the services (API Keys) needed to create the restricted access on the ACLs. | <pre>list(object({<br>    name                   = string<br>    readTopics             = optional(list(string), [])<br>    writeTopics            = optional(list(string), [])<br>    clusterAccess          = optional(list(string), [])<br>    consumerGroups         = optional(list(string), [])<br>    prefixedConsumerGroups = optional(list(string), [])<br>  }))</pre> | `[]` | no |
 | <a name="input_topics"></a> [topics](#input\_topics) | This helps to create a Topic resource along with the specific settings. | <pre>map(object({<br>    partitions_count = number<br>    config           = map(string)<br>  }))</pre> | `{}` | no |
 
 ## Outputs
